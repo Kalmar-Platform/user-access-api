@@ -10,6 +10,8 @@ import com.visma.kalmar.api.user.UpdateUserInputPort;
 import com.visma.kalmar.api.user.UpdateUserUseCase;
 import com.visma.kalmar.api.user.DeleteUserInputPort;
 import com.visma.kalmar.api.user.DeleteUserUseCase;
+import com.visma.kalmar.api.user.GetUserInputPort;
+import com.visma.kalmar.api.user.GetUserUseCase;
 import com.visma.kalmar.api.user.UserGateway;
 import com.visma.kalmar.api.vismaconnect.VismaConnectUserGateway;
 import com.visma.useraccess.kalmar.api.language.LanguageRepository;
@@ -58,5 +60,11 @@ public class UserConfig {
   public DeleteUserInputPort deleteUserInputPort(
       UserGateway userGateway, VismaConnectUserGateway vismaConnectUserGateway) {
     return new DeleteUserUseCase(userGateway, vismaConnectUserGateway);
+  }
+
+  @Bean
+  public GetUserInputPort getUserInputPort(
+      UserGateway userGateway, LanguageGateway languageGateway) {
+    return new GetUserUseCase(userGateway, languageGateway);
   }
 }

@@ -20,16 +20,27 @@ public class UserApiController implements UserApi {
     private final CreateUserInputPort createUserInputPort;
     private final UpdateUserInputPort updateUserInputPort;
     private final DeleteUserInputPort deleteUserInputPort;
+    private final GetUserInputPort getUserInputPort;
     private final UserPresenter userPresenter;
 
     @Autowired
     public UserApiController(CreateUserInputPort createUserInputPort,
                             UpdateUserInputPort updateUserInputPort,
-                            DeleteUserInputPort deleteUserInputPort) {
+                            DeleteUserInputPort deleteUserInputPort,
+                            GetUserInputPort getUserInputPort) {
+        this(createUserInputPort, updateUserInputPort, deleteUserInputPort, getUserInputPort, new UserPresenter());
+    }
+
+    UserApiController(CreateUserInputPort createUserInputPort,
+                     UpdateUserInputPort updateUserInputPort,
+                     DeleteUserInputPort deleteUserInputPort,
+                     GetUserInputPort getUserInputPort,
+                     UserPresenter userPresenter) {
         this.createUserInputPort = createUserInputPort;
         this.updateUserInputPort = updateUserInputPort;
         this.deleteUserInputPort = deleteUserInputPort;
-        this.userPresenter = new UserPresenter();
+        this.getUserInputPort = getUserInputPort;
+        this.userPresenter = userPresenter;
     }
 
     @Override
@@ -64,5 +75,18 @@ public class UserApiController implements UserApi {
         UUID userUuid = UUID.fromString(userId);
         deleteUserInputPort.deleteUser(userUuid);
         return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<UserResponse> getUserById(String userId) {
+        UUID userUuid = UUID.fromString(userId);
+        getUserInputPort.getUserById(userUuid, userPresenter);
+        return userPresenter.getResponse();
+    }
+
+    @Override
+    public ResponseEntity<UserResponse> getUserByEmail(String email) {
+        getUserInputPort.getUserByEmail(email, userPresenter);
+        return userPresenter.getResponse();
     }
 }

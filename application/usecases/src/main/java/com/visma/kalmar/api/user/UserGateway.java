@@ -10,6 +10,8 @@ public interface UserGateway {
     
     User findById(UUID userId);
     
+    User findByEmail(String email);
+    
     User update(User user);
     
     boolean existsByEmail(String email);

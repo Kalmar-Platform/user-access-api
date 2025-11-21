@@ -49,6 +49,13 @@ public class UserGatewayAdapter implements UserGateway {
     }
 
     @Override
+    public User findByEmail(String email) {
+        return userAccessUserRepository.findByEmail(email)
+                .map(this::toDomainUser)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "User not found with email: " + email));
+    }
+
+    @Override
     public User update(User user) {
         // Verify user exists first
         userAccessUserRepository.findById(user.idUser())
