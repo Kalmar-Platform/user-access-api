@@ -11,7 +11,7 @@ The project uses **Visma Connect** as its exclusive Identity Provider (IDP). All
 ## 2. Configuration
 The `OAuth2` client configuration is defined in the `application-{env}.yml` file for each environment. Ensure the following properties are correctly set under `spring.security.oauth2.client`:
 
-* `isuer-uri`
+* `issuer-uri`
 * `token-uri`
 
 ---
