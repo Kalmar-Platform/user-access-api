@@ -2,7 +2,7 @@ package com.visma.kalmar.api.adapters.user;
 
 import com.visma.kalmar.api.entities.user.User;
 import com.visma.kalmar.api.exception.ResourceNotFoundException;
-import com.visma.useraccess.kalmar.api.user.UserRepository;
+import com.visma.feature.kalmar.api.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -39,9 +39,9 @@ class UserGatewayAdapterTest {
     @Test
     void save_success() {
         User domainUser = createDomainUser();
-        com.visma.useraccess.kalmar.api.user.User repositoryUser = createRepositoryUser();
+        com.visma.feature.kalmar.api.user.User repositoryUser = createRepositoryUser();
 
-        when(userRepository.save(any(com.visma.useraccess.kalmar.api.user.User.class)))
+        when(userRepository.save(any(com.visma.feature.kalmar.api.user.User.class)))
                 .thenReturn(repositoryUser);
 
         User result = userGatewayAdapter.save(domainUser);
@@ -53,12 +53,12 @@ class UserGatewayAdapterTest {
         assertEquals(FIRST_NAME, result.firstName());
         assertEquals(LAST_NAME, result.lastName());
         assertEquals(RECORD_VERSION, result.recordVersion());
-        verify(userRepository, times(1)).save(any(com.visma.useraccess.kalmar.api.user.User.class));
+        verify(userRepository, times(1)).save(any(com.visma.feature.kalmar.api.user.User.class));
     }
 
     @Test
     void findById_success() {
-        com.visma.useraccess.kalmar.api.user.User repositoryUser = createRepositoryUser();
+        com.visma.feature.kalmar.api.user.User repositoryUser = createRepositoryUser();
         when(userRepository.findById(USER_ID)).thenReturn(Optional.of(repositoryUser));
 
         User result = userGatewayAdapter.findById(USER_ID);
@@ -83,7 +83,7 @@ class UserGatewayAdapterTest {
 
     @Test
     void findByEmail_success() {
-        com.visma.useraccess.kalmar.api.user.User repositoryUser = createRepositoryUser();
+        com.visma.feature.kalmar.api.user.User repositoryUser = createRepositoryUser();
         when(userRepository.findByEmail(EMAIL)).thenReturn(Optional.of(repositoryUser));
 
         User result = userGatewayAdapter.findByEmail(EMAIL);
@@ -109,10 +109,10 @@ class UserGatewayAdapterTest {
     @Test
     void update_success() {
         User domainUser = createDomainUser();
-        com.visma.useraccess.kalmar.api.user.User repositoryUser = createRepositoryUser();
+        com.visma.feature.kalmar.api.user.User repositoryUser = createRepositoryUser();
 
         when(userRepository.findById(USER_ID)).thenReturn(Optional.of(repositoryUser));
-        when(userRepository.save(any(com.visma.useraccess.kalmar.api.user.User.class)))
+        when(userRepository.save(any(com.visma.feature.kalmar.api.user.User.class)))
                 .thenReturn(repositoryUser);
 
         User result = userGatewayAdapter.update(domainUser);
@@ -124,7 +124,7 @@ class UserGatewayAdapterTest {
         assertEquals(FIRST_NAME, result.firstName());
         assertEquals(LAST_NAME, result.lastName());
         verify(userRepository, times(1)).findById(USER_ID);
-        verify(userRepository, times(1)).save(any(com.visma.useraccess.kalmar.api.user.User.class));
+        verify(userRepository, times(1)).save(any(com.visma.feature.kalmar.api.user.User.class));
     }
 
     @Test
@@ -136,7 +136,7 @@ class UserGatewayAdapterTest {
         assertThrows(ResourceNotFoundException.class,
                 () -> userGatewayAdapter.update(domainUser));
         verify(userRepository, times(1)).findById(USER_ID);
-        verify(userRepository, never()).save(any(com.visma.useraccess.kalmar.api.user.User.class));
+        verify(userRepository, never()).save(any(com.visma.feature.kalmar.api.user.User.class));
     }
 
     @Test
@@ -181,7 +181,7 @@ class UserGatewayAdapterTest {
 
     @Test
     void deleteById_success() {
-        com.visma.useraccess.kalmar.api.user.User repositoryUser = createRepositoryUser();
+        com.visma.feature.kalmar.api.user.User repositoryUser = createRepositoryUser();
 
         when(userRepository.findById(USER_ID)).thenReturn(Optional.of(repositoryUser));
 
@@ -198,7 +198,7 @@ class UserGatewayAdapterTest {
         assertThrows(ResourceNotFoundException.class,
                 () -> userGatewayAdapter.deleteById(USER_ID));
         verify(userRepository, times(1)).findById(USER_ID);
-        verify(userRepository, never()).delete(any(com.visma.useraccess.kalmar.api.user.User.class));
+        verify(userRepository, never()).delete(any(com.visma.feature.kalmar.api.user.User.class));
     }
 
     private User createDomainUser() {
@@ -213,8 +213,8 @@ class UserGatewayAdapterTest {
         );
     }
 
-    private com.visma.useraccess.kalmar.api.user.User createRepositoryUser() {
-        return new com.visma.useraccess.kalmar.api.user.User(
+    private com.visma.feature.kalmar.api.user.User createRepositoryUser() {
+        return new com.visma.feature.kalmar.api.user.User(
                 USER_ID,
                 LANGUAGE_ID,
                 EMAIL,

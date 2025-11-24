@@ -8,7 +8,7 @@ import java.util.UUID;
 /**
  * Use case for deleting an existing user.
  * Handles user deletion from both local database and Visma Connect.
- * The user will be unlinked from Visma Connect and deleted from the UserAccess database.
+ * The user will be unlinked from Visma Connect and deleted from the Feature database.
  */
 public class DeleteUserUseCase implements DeleteUserInputPort {
 
@@ -25,20 +25,6 @@ public class DeleteUserUseCase implements DeleteUserInputPort {
     public void deleteUser(UUID userId) {
         // Check if user exists (this will throw ResourceNotFoundException if not found)
         userGateway.findById(userId);
-
-        // Unlink user from Visma Connect first
-        try {
-            vismaConnectUserGateway.unlinkClient(userId);
-        } catch (ConnectUserException ex) {
-            // Check if the error is ERROR_USER_UNLINKED_FROM_CLIENT (409)
-            // This is considered a valid response as mentioned in requirements
-            if (ex.getStatusCode() == 409 && "ERROR_USER_UNLINKED_FROM_CLIENT".equals(ex.getMessage())) {
-                // Continue with deletion as this is acceptable
-            } else {
-                // Re-throw for other errors
-                throw ex;
-            }
-        }
 
         // Delete user from database (we know Connect unlink succeeded or was already unlinked)
         userGateway.deleteById(userId);

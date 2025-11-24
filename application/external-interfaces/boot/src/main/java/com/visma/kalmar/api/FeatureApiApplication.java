@@ -4,8 +4,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UserAccessApiApplication {
+public class FeatureApiApplication {
     public static void main(String[] args) {
-        SpringApplication.run(UserAccessApiApplication.class, args);
+        SpringApplication.run(FeatureApiApplication.class, args);
     }
 }

@@ -11,7 +11,7 @@ The location of repository and entity files is critical for the multi-database c
 * **Base Module:** All repositories and their entities **must** be located in the `interface-adapters/gateways/` module.
 * **Database-Specific Packages:** The project connects to two separate databases. Repositories and their entities **must** be placed in the package matching the database they connect to:
     * **Subscription DB:** `com.visma.subscription.kalmar.api.**`
-    * **UserAccess DB:** `com.visma.useraccess.kalmar.api.**`
+    * **Feature DB:** `com.visma.feature.kalmar.api.**`
 
 ---
 
@@ -54,7 +54,7 @@ This is a critical, project-specific rule that **must** be followed for all enti
 @Entity
 @Table(name = "Country")
 @Data
-public class UserAccessCountry {
+public class FeatureCountry {
     
     @Id
     @Column(name = "IdCountry", columnDefinition = "CHAR(36)")

@@ -35,7 +35,7 @@
 
                         </container>
                         <to>
-                            <image>useraccess-api</image>
+                            <image>feature-api</image>
                         </to>
                     </configuration>
                     <groupId>com.google.cloud.tools</groupId>

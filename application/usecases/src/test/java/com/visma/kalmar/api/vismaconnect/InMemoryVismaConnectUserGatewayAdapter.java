@@ -17,8 +17,6 @@ public class InMemoryVismaConnectUserGatewayAdapter implements VismaConnectUserG
 
     private boolean shouldFailOnCreate = false;
     private boolean shouldFailOnUpdate = false;
-    private boolean shouldFailOnUnlink = false;
-    private boolean shouldReturnAlreadyUnlinked = false;
 
     @Override
     public UUID createUser(User user, String languageCode) {
@@ -56,23 +54,6 @@ public class InMemoryVismaConnectUserGatewayAdapter implements VismaConnectUserG
     }
 
     @Override
-    public void unlinkClient(UUID userId) {
-        if (shouldReturnAlreadyUnlinked) {
-            throw new ConnectUserException("ERROR_USER_UNLINKED_FROM_CLIENT", 409, "ERROR_USER_UNLINKED_FROM_CLIENT");
-        }
-
-        if (shouldFailOnUnlink) {
-            throw new ConnectUserException("Failed to unlink user from Visma Connect", 500, "ERROR_INTERNAL");
-        }
-
-        if (!users.containsKey(userId)) {
-            throw new ResourceNotFoundException("User", "User not found in Visma Connect with id: " + userId);
-        }
-
-        unlinkedUsers.put(userId, true);
-    }
-
-    @Override
     public User findUserById(String userId) {
         UUID userUuid = UUID.fromString(userId);
         User user = users.get(userUuid);
@@ -87,10 +68,6 @@ public class InMemoryVismaConnectUserGatewayAdapter implements VismaConnectUserG
         return Optional.ofNullable(usersByEmail.get(userEmail));
     }
 
-    @Override
-    public void sendEmailActivation(String connectUserId, String applicationName, String redirectUri, String state, String recipient) {
-    }
-
     public void setShouldFailOnCreate(boolean shouldFail) {
         this.shouldFailOnCreate = shouldFail;
     }
@@ -99,13 +76,6 @@ public class InMemoryVismaConnectUserGatewayAdapter implements VismaConnectUserG
         this.shouldFailOnUpdate = shouldFail;
     }
 
-    public void setShouldFailOnUnlink(boolean shouldFail) {
-        this.shouldFailOnUnlink = shouldFail;
-    }
-
-    public void setShouldReturnAlreadyUnlinked(boolean shouldReturn) {
-        this.shouldReturnAlreadyUnlinked = shouldReturn;
-    }
 
     public boolean isUserUnlinked(UUID userId) {
         return unlinkedUsers.getOrDefault(userId, false);
@@ -117,7 +87,5 @@ public class InMemoryVismaConnectUserGatewayAdapter implements VismaConnectUserG
         unlinkedUsers.clear();
         shouldFailOnCreate = false;
         shouldFailOnUpdate = false;
-        shouldFailOnUnlink = false;
-        shouldReturnAlreadyUnlinked = false;
     }
 }

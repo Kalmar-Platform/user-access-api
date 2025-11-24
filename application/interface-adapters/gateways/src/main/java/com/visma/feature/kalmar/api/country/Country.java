@@ -1,4 +1,4 @@
-package com.visma.useraccess.kalmar.api.country;
+package com.visma.feature.kalmar.api.country;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

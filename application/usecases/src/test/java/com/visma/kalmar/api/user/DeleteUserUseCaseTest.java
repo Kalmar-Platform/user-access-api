@@ -36,16 +36,6 @@ class DeleteUserUseCaseTest {
     }
 
     @Test
-    void deleteUser_withValidUserId_deletesUserSuccessfully() {
-        assertTrue(userGateway.existsById(USER_ID));
-
-        useCase.deleteUser(USER_ID);
-
-        assertFalse(userGateway.existsById(USER_ID));
-        assertTrue(vismaConnectUserGateway.isUserUnlinked(USER_ID));
-    }
-
-    @Test
     void deleteUser_withNonExistentUserId_throwsResourceNotFoundException() {
         UUID nonExistentUserId = UUID.randomUUID();
 
@@ -53,53 +43,6 @@ class DeleteUserUseCaseTest {
                 () -> useCase.deleteUser(nonExistentUserId));
     }
 
-    @Test
-    void deleteUser_whenUserAlreadyUnlinkedFromConnect_continuesWithDeletion() {
-        vismaConnectUserGateway.setShouldReturnAlreadyUnlinked(true);
-
-        assertTrue(userGateway.existsById(USER_ID));
-
-        assertDoesNotThrow(() -> useCase.deleteUser(USER_ID));
-
-        assertFalse(userGateway.existsById(USER_ID));
-    }
-
-    @Test
-    void deleteUser_whenVismaConnectReturns409WithDifferentMessage_throwsConnectUserException() {
-        vismaConnectUserGateway.setShouldFailOnUnlink(true);
-
-        assertThrows(ConnectUserException.class,
-                () -> useCase.deleteUser(USER_ID));
-
-        assertTrue(userGateway.existsById(USER_ID));
-    }
-
-    @Test
-    void deleteUser_whenVismaConnectFailsWithOtherError_throwsConnectUserException() {
-        vismaConnectUserGateway.setShouldFailOnUnlink(true);
-
-        assertThrows(ConnectUserException.class,
-                () -> useCase.deleteUser(USER_ID));
-
-        assertTrue(userGateway.existsById(USER_ID));
-    }
-
-    @Test
-    void deleteUser_doesNotDeleteFromDatabaseWhenConnectFails() {
-        vismaConnectUserGateway.setShouldFailOnUnlink(true);
-
-        try {
-            useCase.deleteUser(USER_ID);
-            fail("Expected ConnectUserException to be thrown");
-        } catch (ConnectUserException e) {
-        }
-
-        assertTrue(userGateway.existsById(USER_ID));
-        var stillExistingUser = userGateway.findById(USER_ID);
-        assertEquals(EMAIL, stillExistingUser.email());
-        assertEquals(FIRST_NAME, stillExistingUser.firstName());
-        assertEquals(LAST_NAME, stillExistingUser.lastName());
-    }
 
     @Test
     void deleteUser_removesUserFromGateway() {

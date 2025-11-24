@@ -23,7 +23,7 @@ The code is located in the `application/` folder. While modules separate layers,
 organized by domain concepts (e.g., `customer`, `subscription`).
 
 ```plaintext
-useraccess-api/
+feature-api/
 └── application/
     ├── entities/
     ├── usecases/

@@ -27,9 +27,9 @@ public interface CustomerGateway {
 ```
 
 ### 2.1. Multi-Database Naming Convention
-When an entity exists in multiple databases (e.g., `UserAccess` and `Subscription`), you **must** prefix method names accordingly to avoid ambiguity.
+When an entity exists in multiple databases (e.g., `Feature` and `Subscription`), you **must** prefix method names accordingly to avoid ambiguity.
 
-* Methods for the `UserAccess` database: `findUserAccessCustomerById(...)`
+* Methods for the `Feature` database: `findFeatureCustomerById(...)`
 * Methods for the `Subscription` database: `findSubscriptionCustomerById(...)`
 * Operations that apply to both (like `save`) can remain unprefixed.
 
@@ -41,7 +41,7 @@ Gateway implementations contain the concrete logic for interacting with a data s
 * **Location:** Implementations **must** be located in the `interface-adapters` module, under the `gateways` submodule.
 * **Naming Convention:** The class name **must** be the interface name with the suffix `GatewayAdapter` (e.g., `CustomerGatewayAdapter`).
 * **Dependencies:** Gateway adapters **must** only inject `Spring Data` repositories.
-* **Default Database:** When fetching data from tables common to both databases (e.g., `Customer`, `Country`), the implementation **must** default to the `UserAccess` database unless a method prefix specifies otherwise.
+* **Default Database:** When fetching data from tables common to both databases (e.g., `Customer`, `Country`), the implementation **must** default to the `Feature` database unless a method prefix specifies otherwise.
 
 ### 3.1. Implementation Rules & Patterns
 * **Exception Handling:** All `find` methods that return a single entity **must** handle empty `Optional` results by throwing a `ResourceNotFoundException`. This is a non-negotiable rule.

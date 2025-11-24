@@ -25,37 +25,37 @@ import java.util.Objects;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = "com.visma.useraccess.kalmar.api",
-        entityManagerFactoryRef = "useraccessEntityManagerFactory",
-        transactionManagerRef = "useraccessTransactionManager")
-public class UserAccessDatabaseConfig {
+        basePackages = "com.visma.feature.kalmar.api",
+        entityManagerFactoryRef = "featureEntityManagerFactory",
+        transactionManagerRef = "featureTransactionManager")
+public class FeatureDatabaseConfig {
     @Value("${spring.jpa.database-platform}")
     private String dialect;
 
     @Bean
     @Primary
     @ConfigurationProperties("spring.datasource")
-    public DataSourceProperties useraccessDataSourceProperties() {
+    public DataSourceProperties featureDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
     @Primary
     @ConfigurationProperties("spring.datasource")
-    public DataSource useraccessDataSource() {
-        return useraccessDataSourceProperties()
+    public DataSource featureDataSource() {
+        return featureDataSourceProperties()
                 .initializeDataSourceBuilder()
                 .type(HikariDataSource.class)
                 .build();
     }
 
     @Primary
-    @Bean(name = "useraccessEntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean useraccessEntityManagerFactory(
+    @Bean(name = "featureEntityManagerFactory")
+    public LocalContainerEntityManagerFactoryBean featureEntityManagerFactory(
             EntityManagerFactoryBuilder builder) {
         var em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(useraccessDataSource());
-        em.setPackagesToScan("com.visma.useraccess.kalmar.api.**");
+        em.setDataSource(featureDataSource());
+        em.setPackagesToScan("com.visma.feature.kalmar.api.**");
         var vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
@@ -66,8 +66,8 @@ public class UserAccessDatabaseConfig {
 
     @Primary
     @Bean
-    public PlatformTransactionManager useraccessTransactionManager(
-            final @Qualifier("useraccessEntityManagerFactory") LocalContainerEntityManagerFactoryBean
+    public PlatformTransactionManager featureTransactionManager(
+            final @Qualifier("featureEntityManagerFactory") LocalContainerEntityManagerFactoryBean
                     ondemandEntityManagerFactory) {
 
         return new JpaTransactionManager(

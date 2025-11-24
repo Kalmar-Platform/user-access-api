@@ -113,9 +113,9 @@
     </properties>
 
     <scm>
-        <connection>scm:git:https://github.com/Kalmar-Platform/useraccess-api.git</connection>
-        <url>https://github.com/Kalmar-Platform/useraccess-api.git</url>
-        <developerConnection>scm:git:https://github.com/Kalmar-Platform/useraccess-api.git
+        <connection>scm:git:https://github.com/Kalmar-Platform/feature-api.git</connection>
+        <url>https://github.com/Kalmar-Platform/feature-api.git</url>
+        <developerConnection>scm:git:https://github.com/Kalmar-Platform/feature-api.git
         </developerConnection>
         <tag>HEAD</tag>
     </scm>

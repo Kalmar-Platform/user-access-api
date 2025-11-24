@@ -2,7 +2,7 @@ package com.visma.kalmar.api.adapters.language;
 
 import com.visma.kalmar.api.entities.language.Language;
 import com.visma.kalmar.api.exception.ResourceNotFoundException;
-import com.visma.useraccess.kalmar.api.language.LanguageRepository;
+import com.visma.feature.kalmar.api.language.LanguageRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -33,8 +33,8 @@ class LanguageGatewayAdapterTest {
 
     @Test
     void findByCode_existingLanguage_returnsLanguage() {
-        com.visma.useraccess.kalmar.api.language.Language languageEntity =
-                new com.visma.useraccess.kalmar.api.language.Language();
+        com.visma.feature.kalmar.api.language.Language languageEntity =
+                new com.visma.feature.kalmar.api.language.Language();
         languageEntity.setIdLanguage(LANGUAGE_ID);
         languageEntity.setCode(LANGUAGE_CODE);
         languageEntity.setName(LANGUAGE_NAME);
@@ -62,8 +62,8 @@ class LanguageGatewayAdapterTest {
 
     @Test
     void findById_existingLanguage_returnsLanguage() {
-        com.visma.useraccess.kalmar.api.language.Language languageEntity =
-                new com.visma.useraccess.kalmar.api.language.Language();
+        com.visma.feature.kalmar.api.language.Language languageEntity =
+                new com.visma.feature.kalmar.api.language.Language();
         languageEntity.setIdLanguage(LANGUAGE_ID);
         languageEntity.setCode(LANGUAGE_CODE);
         languageEntity.setName(LANGUAGE_NAME);

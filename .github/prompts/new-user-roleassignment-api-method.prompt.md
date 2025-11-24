@@ -8,7 +8,7 @@ Your goal is to implement a new API method ${input:methodName} in the Role Assig
 
 When implementing the method, besides the guidelines in all the instruction files you also need to consider the particularities of the Role API :
 
-- The `UserRoleAssignment` table exists only in the `UserAccess` database, so you will only need to update this database.
+- The `UserRoleAssignment` table exists only in the `Feature` database, so you will only need to update this database.
 - Re-use exiting request and response DTOs for the Role API, such as `RoleAssignmentRequest` and `RoleAssignmentResponse`, as much as possible.
 - Re-use `RoleAssignmentPresenter` for all methods that need to return a `RoleAssignment` object.
 - Re-use `InputData` and `OutputData` object for use cases as much as possible

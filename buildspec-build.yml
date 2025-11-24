@@ -23,7 +23,7 @@ phases:
   pre_build:
     commands:
     - AWS_URI=602259772901.dkr.ecr.eu-north-1.amazonaws.com
-    - REPOSITORY_NAME=useraccess-api
+    - REPOSITORY_NAME=feature-api
     - REPOSITORY_URI=$AWS_URI/$REPOSITORY_NAME
     - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
     - IMAGE_TAG=${COMMIT_HASH:=latest}
@@ -51,7 +51,7 @@ phases:
 
   build:
     commands:
-    - echo "UserAccess API BUILD"
+    - echo "Feature API BUILD"
     - aws sts get-caller-identity
     - pwd
     - whoami
@@ -67,7 +67,7 @@ phases:
     - cat imageDetail.json
     - printf '{"image build and push successful":"%s"}' $REPOSITORY_URI:$IMAGE_TAG
     - echo "Deploying to Fargate using deployment script..."
-    - python3 codebuild_script/deploy_on_fargate.py $REPOSITORY_URI:$IMAGE_TAG --cluster useraccess-api-test-k-cluster --service useraccess-api-test-k-service --task-family useraccess-api-test-k-family --region eu-north-1
+    - python3 codebuild_script/deploy_on_fargate.py $REPOSITORY_URI:$IMAGE_TAG --cluster feature-api-test-k-cluster --service feature-api-test-k-service --task-family feature-api-test-k-family --region eu-north-1
 
 cache:
   paths:

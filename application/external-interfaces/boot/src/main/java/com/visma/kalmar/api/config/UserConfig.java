@@ -6,23 +6,26 @@ import com.visma.kalmar.api.adapters.user.UserGatewayAdapter;
 import com.visma.kalmar.api.language.LanguageGateway;
 import com.visma.kalmar.api.user.*;
 import com.visma.kalmar.api.vismaconnect.VismaConnectUserGateway;
-import com.visma.useraccess.kalmar.api.language.LanguageRepository;
-import com.visma.useraccess.kalmar.api.user.UserRepository;
+import com.visma.feature.kalmar.api.language.LanguageRepository;
+import com.visma.feature.kalmar.api.user.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class UserConfig {
 
+    private LanguageRepository languageRepository;
+
     @Bean
-    public UserGateway userGateway(UserRepository userAccessUserRepository) {
-        return new UserGatewayAdapter(userAccessUserRepository);
+    public UserGateway userGateway(UserRepository userRepository) {
+        return new UserGatewayAdapter(userRepository);
     }
 
     @Bean
     public LanguageGateway languageGateway(
-            LanguageRepository userAccessLanguageRepository) {
-        return new LanguageGatewayAdapter(userAccessLanguageRepository);
+            LanguageRepository languageRepository) {
+        this.languageRepository = languageRepository;
+        return new LanguageGatewayAdapter(languageRepository);
     }
 
     @Bean

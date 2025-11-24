@@ -1,13 +1,13 @@
 package com.visma.api.subscription.externaladapters.boot;
 
-import com.visma.kalmar.api.UserAccessApiApplication;
+import com.visma.kalmar.api.FeatureApiApplication;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest(classes = UserAccessApiApplication.class)
+@SpringBootTest(classes = FeatureApiApplication.class)
 @ActiveProfiles("test")
-class UserAccessApiApplicationTest {
+class FeatureApiApplicationTest {
 
     @Test
     void contextLoads() {

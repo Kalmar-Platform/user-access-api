@@ -21,7 +21,7 @@ public interface UserApi {
     @PostMapping("/users")
     @Operation(
             summary = "Create a new user",
-            description = "Create a new user with the provided details. The user will be created in the UserAccess database and synchronized with Visma Connect identity provider. " +
+            description = "Create a new user with the provided details. The user will be created in the Feature database and synchronized with Visma Connect identity provider. " +
                     "The language code will be converted to a language ID when saving the user, and the user will be synchronized with Visma Connect using the locale format.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User created successfully"),
@@ -35,7 +35,7 @@ public interface UserApi {
     @PutMapping("/users/{userId}")
     @Operation(
             summary = "Update an existing user",
-            description = "Update an existing user with the provided details. The user will be updated in the UserAccess database and synchronized with Visma Connect identity provider. " +
+            description = "Update an existing user with the provided details. The user will be updated in the Feature database and synchronized with Visma Connect identity provider. " +
                     "The language code will be converted to a language ID when saving the user, and the user will be synchronized with Visma Connect using the locale format.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User updated successfully"),
@@ -50,7 +50,7 @@ public interface UserApi {
     @DeleteMapping("/users/{userId}")
     @Operation(
             summary = "Delete an existing user",
-            description = "Delete an existing user by ID. The user will be unlinked from Visma Connect identity provider and removed from the UserAccess database. " +
+            description = "Delete an existing user by ID. The user will be unlinked from Visma Connect identity provider and removed from the Feature database. " +
                     "If the user is already unlinked from Visma Connect (409 ERROR_USER_UNLINKED_FROM_CLIENT), this is considered a valid response and the deletion will proceed.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204", description = "User deleted successfully"),

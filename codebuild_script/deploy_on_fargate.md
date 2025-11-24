@@ -37,7 +37,7 @@ python deploy_on_fargate.py <image_uri>
 
 ```bash
 # Deploy specific image
-python deploy_on_fargate.py 602259772901.dkr.ecr.eu-north-1.amazonaws.com/useraccess-api:31e3524
+python deploy_on_fargate.py 602259772901.dkr.ecr.eu-north-1.amazonaws.com/feature-api:31e3524
 
 # Deploy with environment variables (from CI/CD)
 python deploy_on_fargate.py $REPOSITORY_URI:$IMAGE_TAG
@@ -48,7 +48,7 @@ python deploy_on_fargate.py \
   --service my-service \
   --task-family my-task-family \
   --region us-west-2 \
-  602259772901.dkr.ecr.eu-north-1.amazonaws.com/useraccess-api:latest
+  602259772901.dkr.ecr.eu-north-1.amazonaws.com/feature-api:latest
 ```
 
 ## Command Line Arguments
@@ -59,9 +59,9 @@ python deploy_on_fargate.py \
 
 ### Optional Arguments
 
-- `--cluster`: ECS cluster name (default: `useraccess-api-test-k-cluster`)
-- `--service`: ECS service name (default: `useraccess-api-test-k-service`)
-- `--task-family`: Task definition family name (default: `useraccess-api-test-k-family`)
+- `--cluster`: ECS cluster name (default: `feature-api-test-k-cluster`)
+- `--service`: ECS service name (default: `feature-api-test-k-service`)
+- `--task-family`: Task definition family name (default: `feature-api-test-k-family`)
 - `--region`: AWS region (default: `eu-north-1`)
 
 ## Features

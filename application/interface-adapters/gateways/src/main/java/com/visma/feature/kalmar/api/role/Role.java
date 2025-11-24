@@ -1,4 +1,4 @@
-package com.visma.useraccess.kalmar.api.role;
+package com.visma.feature.kalmar.api.role;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,4 +25,6 @@ public class Role {
 
     @Column(name = "Name", nullable = false, length = 255)
     private String name;
+
+
 }

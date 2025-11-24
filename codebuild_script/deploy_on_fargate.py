@@ -162,7 +162,7 @@ def main():
         epilog="""
 Examples:
   # Deploy specific image
-  python deploy-ecs-image.py 602259772901.dkr.ecr.eu-north-1.amazonaws.com/useraccess-api:31e3524
+  python deploy-ecs-image.py 602259772901.dkr.ecr.eu-north-1.amazonaws.com/feature-api:31e3524
   
   # Deploy with environment variables (from CI/CD)
   python deploy-ecs-image.py $REPOSITORY_URI:$IMAGE_TAG
@@ -176,20 +176,20 @@ Examples:
     
     parser.add_argument(
         "--cluster",
-        default="useraccess-api-test-k-cluster",
-        help="ECS cluster name (default: useraccess-api-test-k-cluster)"
+        default="feature-api-test-k-cluster",
+        help="ECS cluster name (default: feature-api-test-k-cluster)"
     )
     
     parser.add_argument(
         "--service",
-        default="useraccess-api-test-k-service",
-        help="ECS service name (default: useraccess-api-test-k-service)"
+        default="feature-api-test-k-service",
+        help="ECS service name (default: feature-api-test-k-service)"
     )
     
     parser.add_argument(
         "--task-family",
-        default="useraccess-api-test-k-family",
-        help="Task definition family (default: useraccess-api-test-k-family)"
+        default="feature-api-test-k-family",
+        help="Task definition family (default: feature-api-test-k-family)"
     )
     
     parser.add_argument(

@@ -3,21 +3,21 @@ package com.visma.kalmar.api.adapters.user;
 import com.visma.kalmar.api.entities.user.User;
 import com.visma.kalmar.api.exception.ResourceNotFoundException;
 import com.visma.kalmar.api.user.UserGateway;
-import com.visma.useraccess.kalmar.api.user.UserRepository;
+import com.visma.feature.kalmar.api.user.UserRepository;
 
 import java.util.UUID;
 
 public class UserGatewayAdapter implements UserGateway {
 
-    private final UserRepository userAccessUserRepository;
+    private final UserRepository userRepository;
 
-    public UserGatewayAdapter(UserRepository userAccessUserRepository) {
-        this.userAccessUserRepository = userAccessUserRepository;
+    public UserGatewayAdapter(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public User save(User user) {
-        var userAccessUser = new com.visma.useraccess.kalmar.api.user.User(
+        var userEntity = new com.visma.feature.kalmar.api.user.User(
                 user.idUser(),
                 user.idLanguage(),
                 user.email(),
@@ -27,7 +27,7 @@ public class UserGatewayAdapter implements UserGateway {
                 user.whenEdited()
         );
 
-        var savedUser = userAccessUserRepository.save(userAccessUser);
+        var savedUser = userRepository.save(userEntity);
 
         return new User(
                 savedUser.getIdUser(),
@@ -43,14 +43,14 @@ public class UserGatewayAdapter implements UserGateway {
 
     @Override
     public User findById(UUID userId) {
-        return userAccessUserRepository.findById(userId)
+        return userRepository.findById(userId)
                 .map(this::toDomainUser)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "User not found with id: " + userId));
     }
 
     @Override
     public User findByEmail(String email) {
-        return userAccessUserRepository.findByEmail(email)
+        return userRepository.findByEmail(email)
                 .map(this::toDomainUser)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "User not found with email: " + email));
     }
@@ -58,10 +58,10 @@ public class UserGatewayAdapter implements UserGateway {
     @Override
     public User update(User user) {
         // Verify user exists first
-        userAccessUserRepository.findById(user.idUser())
+        userRepository.findById(user.idUser())
                 .orElseThrow(() -> new ResourceNotFoundException("User", "User not found with id: " + user.idUser()));
 
-        var userAccessUser = new com.visma.useraccess.kalmar.api.user.User(
+        var userEntity = new com.visma.feature.kalmar.api.user.User(
                 user.idUser(),
                 user.idLanguage(),
                 user.email(),
@@ -71,7 +71,7 @@ public class UserGatewayAdapter implements UserGateway {
                 user.whenEdited()
         );
 
-        var updatedUser = userAccessUserRepository.save(userAccessUser);
+        var updatedUser = userRepository.save(userEntity);
 
         return new User(
                 updatedUser.getIdUser(),
@@ -86,34 +86,34 @@ public class UserGatewayAdapter implements UserGateway {
 
     @Override
     public boolean existsByEmail(String email) {
-        return userAccessUserRepository.existsByEmail(email);
+        return userRepository.existsByEmail(email);
     }
 
     @Override
     public boolean existsById(UUID userId) {
-        return userAccessUserRepository.existsById(userId);
+        return userRepository.existsById(userId);
     }
 
     @Override
     public void deleteById(UUID userId) {
         // Find the user to verify it exists before deleting
-        var userAccessUser = userAccessUserRepository.findById(userId)
+        var user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User",
                         "User not found with id: " + userId));
 
         // Delete the user entity
-        userAccessUserRepository.delete(userAccessUser);
+        userRepository.delete(user);
     }
 
-    private User toDomainUser(com.visma.useraccess.kalmar.api.user.User userAccessUser) {
+    private User toDomainUser(com.visma.feature.kalmar.api.user.User userEntity) {
         return new User(
-                userAccessUser.getIdUser(),
-                userAccessUser.getIdLanguage(),
-                userAccessUser.getEmail(),
-                userAccessUser.getFirstName(),
-                userAccessUser.getLastName(),
-                userAccessUser.getRecordVersion(),
-                userAccessUser.getWhenEdited()
+                userEntity.getIdUser(),
+                userEntity.getIdLanguage(),
+                userEntity.getEmail(),
+                userEntity.getFirstName(),
+                userEntity.getLastName(),
+                userEntity.getRecordVersion(),
+                userEntity.getWhenEdited()
         );
     }
 }

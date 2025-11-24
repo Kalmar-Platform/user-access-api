@@ -28,7 +28,7 @@ phases:
     - echo "Starting CI build on $(date)"
   build:
     commands:
-    - echo "UserAccess API CI"
+    - echo "Feature API CI"
     - aws sts get-caller-identity
     - pwd
     - whoami

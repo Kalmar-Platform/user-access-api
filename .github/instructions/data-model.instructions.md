@@ -1,14 +1,14 @@
 # Data Model Definition
 
  The project uses two Mysql relation databases to store the data:
-  - `UserAccess` which store role assignments and user information
+  - `Feature` which store role assignments and user information
   - `Subscription` which store subscription information, packages, and related entities
   
  Some of the tables can be found int both databases     
 
-## UserAccess Database
+## Feature Database
 
-The model for the UserAccess database is designed to manage user roles, contexts, and languages and is defined below.
+The model for the Feature database is designed to manage user roles, contexts, and languages and is defined below.
 ```sql
     -- Table: Language
     CREATE TABLE Language (

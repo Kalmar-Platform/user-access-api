@@ -1,7 +1,7 @@
 # Infrastructure & Repository Settings
 
 ## Repository Information
-- **Name**: useraccess-api
+- **Name**: feature-api
 - **Owner**: Kalmar-Platform
 - **Branch Strategy**: main, feature/*
 - **Jira Integration**: PHXCORE-{number} format required
