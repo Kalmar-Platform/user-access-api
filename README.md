@@ -1,4 +1,4 @@
-# Kalmar: Subscription Management System
+# Kalmar: Feature Management System
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/spring%20boot-%236DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white)
@@ -42,7 +42,7 @@ The application adheres to **Clean Architecture** principles to promote separati
 The project structure is organized into the following layers:
 
 ```
-subscription-api/
+feature-api/
 ├── application/
 │   ├── entities/                 # Domain entities (innermost layer)
 │   ├── usecases/                 # Business logic and application services
@@ -94,17 +94,17 @@ mvn test
 This project uses Jib to build optimized Docker images directly from Maven without a Dockerfile.
 
 ### Build a Local Docker Image
-This command builds an image named subscription-api and saves it to your local Docker daemon.
+This command builds an image named feature-api and saves it to your local Docker daemon.
 
 ```shell
 ./mvnw clean install
-./mvnw compile com.google.cloud.tools:jib-maven-plugin:dockerBuild -pl application/external-interfaces/boot -Dimage=subscription-api
+./mvnw compile com.google.cloud.tools:jib-maven-plugin:dockerBuild -pl application/external-interfaces/boot -Dimage=feature-api
 ```
 ### Build and Push to AWS ECR
 This command is used in CI/CD pipelines to build the image and push it directly to an Amazon ECR repository.
 
 ```# Replace {awsAccountId} with your AWS Account ID
-./mvnw compile com.google.cloud.tools:jib-maven-plugin:build -pl application/external-interfaces/boot -Dimage={awsAccountId}.dkr.ecr.eu-west-1.amazonaws.com/subscription-api
+./mvnw compile com.google.cloud.tools:jib-maven-plugin:build -pl application/external-interfaces/boot -Dimage={awsAccountId}.dkr.ecr.eu-west-1.amazonaws.com/feature-api
 ```
 ## 📖 API Documentation & Health
 
@@ -119,7 +119,7 @@ Health Check: http://localhost:8080/actuator/health
 ## ☁️ Infrastructure
 The infrastructure for the test environment is provisioned on AWS (Account ID: `602259772901`).
   
-The current infrastructure is managed with `Terraform`, and the code is available in the `subscription-api-infrastructure` repository. There are ongoing plans to migrate this setup to a common infrastructure based on `Terragrunt` and `OpenTofu`.
+The current infrastructure is managed with `Terraform`, and the code is available in the `feature-api-infrastructure` repository. There are ongoing plans to migrate this setup to a common infrastructure based on `Terragrunt` and `OpenTofu`.
 
 ## 🙌 Contributing
  We welcome contributions! Please follow the guidelines below:
