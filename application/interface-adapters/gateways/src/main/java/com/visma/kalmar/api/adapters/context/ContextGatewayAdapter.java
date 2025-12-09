@@ -28,17 +28,6 @@ public class ContextGatewayAdapter implements ContextGateway {
         return contextRepository.existsById(idContext);
     }
 
-    private com.visma.feature.kalmar.api.context.Context toJpaEntity(Context domain) {
-        var jpaEntity = new com.visma.feature.kalmar.api.context.Context();
-        jpaEntity.setIdContext(domain.idContext());
-        jpaEntity.setIdContextType(domain.idContextType());
-        jpaEntity.setIdContextParent(domain.idContextParent());
-        jpaEntity.setIdCountry(domain.idCountry());
-        jpaEntity.setName(domain.name());
-        jpaEntity.setOrganizationNumber(domain.organizationNumber());
-        return jpaEntity;
-    }
-
     private Context toDomainEntity(com.visma.feature.kalmar.api.context.Context jpaEntity) {
         return new Context(
                 jpaEntity.getIdContext(),
