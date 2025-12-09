@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
+@Table(name = "Context")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
 public class Context implements Serializable {
